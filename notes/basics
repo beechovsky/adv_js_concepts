@@ -1,0 +1,72 @@
+NOTE: Much of this is obvious, retread, refresher, etc. However, it's easy to miss the forest for the trees, so there is utility here.
+
+JavaScript is a language conforming to the ECMAScript Standard.
+
+ECMAScript Engine
+Lex. Analysis (Parsing) ->
+  AST ->
+  Interpreter ->
+    Byte Code
+    Profiler ->
+      Compiler ->
+        Optmized Code
+
+Interpreters & Compilers
+Interpreters
+  Read and translate line by line on the fly (runtime, JIT)
+Compiler
+  Works ahead of time to create a translation of code into a lower-level language teh computer understands, which is used at runtime..
+
+Most languages and programs are both interpreted and compiled. Even x86 machine code is compiled down further.
+
+When to Compile vs. When to Interpret
+Aside: 
+  Babel: JS Compiler that produces browser-compatible JS from modern JS
+  TyprScript: superset of JS that compiles to JS
+
+Interpreters have faster start-up time - no stoppage for compilation - as they process in the moment.
+Good choice for JS, as the JS is sent by a user and needs to be dealt with immediately.
+However, interpreters can be very slow due to repreating translations for the same operation.
+Compilers are slower to start, as they have a compilation step, but once compiled, we're dealing with lower-level code which is processed much faster as it's directly understood by the CPU.
+
+You can combine the two to get the pros of each and mitigate the cons. 
+JIT Compilers
+V8, for instance, interprets ASTs into Bytecode, but also monitors/profiles the interpreter to deduce possible optimizations.
+If something is repeated, for instance, that code will be passed off to a JIT compiler. This optimized code will be spliced into the byte code.
+
+Knowing this means we can write code that not only confuses the compiler, leading to deoptimization, but helps the profiler an compiler create the most performant output.
+
+Bytecode != Machine code
+
+JVM, for example, interprets your program to Bytecode only once, and the JVM converts it to environment specific machine code.
+
+Things to be careful about to help the JS engine:
+  - functions that call eval()
+  - arguments keyword
+  - for in loops
+  - with
+  - delete
+
+Why these are bad:
+  - Inline Caching
+  - Hidden Classes
+
+Inline Caching
+NOTE: LOOK THIS UP; example is jank.
+
+Hidden Classes
+Instantiate object properties in the same order, as the compiler utilizes _hidden classes_ under the hood to represent object instances. A new hidden class will be created for each instantiation of the same class if the proerties are assigned in a different order.
+Write 'predictable' code.
+NOTE: LOOK THIS UP.
+
+Aside: Web Assembly
+  Standard Binary Executable Format - a machine code for the web
+  Previously, browsers didn't agree on formats entirely
+
+Call Stack and Memory Heap
+Heap is for write (and read) of data being processed.
+  variable assignment, for example
+Stack is a region of memory allocated to store function calls to allow program to know where point of execution is. FILO.
+Stack Frame - state of the stack.
+
+LOOKOP: Global Execution Context
