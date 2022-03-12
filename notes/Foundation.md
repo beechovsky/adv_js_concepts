@@ -1,6 +1,7 @@
 # Introductory Notes from Javascript: The Advanced Concepts
  *https://www.udemy.com/course/advanced-javascript-concepts/*
 
+## Foudnation, Part 1
 **NOTE: Much of this is obvious, retread, refresher, etc. However, it's easy to miss the forest for the trees, so there is utility here.**
 
 ## General
@@ -86,7 +87,7 @@ Causes of leaks:
 Only one set of instructions is executed at a time on one call stack.
 Initially helped simplify implementation; more than a single thread wasn't required.
 Therefore, JS is synchronous. Long running tasks are slow.
-*Example:* alert(); 
+*Example:* alert();
 - nothing happens until you click it away.
 
 So, we don't always just use the Javascript engine to run code, we also use the Runtime.
