@@ -34,7 +34,7 @@ However, interpreters can be very slow due to repreating translations for the sa
 
 *Compilers* are slower to start, as they have a compilation step, but once compiled, we're dealing with lower-level code which is processed more rapidly as it's directly understood by the CPU.
 
-You can combine the two to get the pros of each and mitigate the cons. 
+You can combine the two to get the pros of each and mitigate the cons.
 
 JIT Compilers
 V8, for instance, interprets ASTs into Bytecode, but also monitors/profiles the interpreter to deduce possible optimizations.
@@ -103,20 +103,24 @@ So, we don't always just use the Javascript engine to run code, we use the Runti
 - Engine + Web API + Event Loop + Callback Queue
 - Example: Node.js
 
-**Web API** 
+### Web API
 - Specific to Browser
 - Typically the Window object
 - Each browser has a JS engine and a Web API
 - Web API chooses when to invoke Engine
-- Browsers use lower level langs in teh background
+- Browsers use lower level langs in the background
 - Web APIs are asynchronous
 - If something hits the Call Stack that isn't recognized by the engine, it gets sent to Web API.
 
 *See JS Runtime Playground:*
 http://latentflip.com/loupe/
 
-***Event Loop***
+### Event Loop
 - Waits for empty stack to move things from Callback Queue, which is populated when the Web API finishes working, into Stack.
 
-***Node - server side runtime & API**
+### Node - server side runtime & API
 - Server-side runtime based on asynchronous I/O that is non-blocking
+
+## Resources
+# JS Cheatsheet
+https://zerotomastery.io/cheatsheets/javascript-cheatsheet-the-advanced-concepts/?utm_source=udemy&utm_medium=coursecontent
