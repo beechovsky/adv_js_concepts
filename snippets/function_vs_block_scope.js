@@ -21,4 +21,29 @@ if (5 > 4) {
 
 moreSecrets // ref error
 
+// Exercise
+// what will happen at log after loop?
+function loop() {
+    for(var i = 0; i < 5; i++) {
+        console.log(i);
+    }
+    console.log('final i: ' + i);
+}
+
+loop()
+// assumption:
+// since var allows leaky scope, it is available and = 5
+// however, using let, the log would throw a reference error as the variable isn't available outside of the loop
+function loop() {
+    for(let i = 0; i < 5; i++) {
+        console.log(i);
+    }
+    console.log('final i: ' + i);
+}
+
+loop()
+
+// CORRECT
+
+
 

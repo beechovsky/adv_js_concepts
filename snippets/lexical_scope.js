@@ -1,10 +1,10 @@
 function sayMyName() {
     var a = 'a';
     return function findName() {
-        // findName()'s function lexical environment is sayMyName()
+        // findName()'s lexical environment is sayMyName()
         var b = 'b';
         return function printName() {
-            // printName()'s function lexical env is findName()
+            // printName()'s lexical environment is findName()
             var c = 'c';
             return 'Jeff';
         }

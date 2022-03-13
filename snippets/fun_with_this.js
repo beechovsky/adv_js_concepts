@@ -30,7 +30,7 @@ b()
 const obj1 = {
     name: 'Billy',
     sing: function() {
-        // this function is a property of obj
+        // this function is a property of obj1
         return 'lalala ' + this.name
     }
     // or:
@@ -39,7 +39,7 @@ const obj1 = {
     // }
 }
 
-obj.sing()
+obj.sing();
 
 // Ex. 5
 const obj2 = {
@@ -56,7 +56,7 @@ const obj2 = {
 // Ex. 6
 // execute same code for mulitple objects
 function importantPerson() {
-    console.log(this.name)
+    console.log(this.name) // this will refer to whatever object invokes this method
 }
 
 // importantPerson() === window.importantPerson,
@@ -66,7 +66,7 @@ const name = 'Sunny';
 const obj3 = {
     name: 'Jeff',
     importantPerson: importantPerson // ta-da!
-    // now, `this` will reference obj3, thobject to which this function call belongs
+    // now, `this` will reference obj3, the object to which this function call belongs
 }
 
 importantPerson() // returns 'Sunny'
