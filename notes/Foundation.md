@@ -98,13 +98,16 @@ So, we don't always just use the Javascript engine to run code, we also use the 
 - Engine + Web API + Event Loop + Callback Queue
 
 ### Web API
-- Specific to Browser
+- Specific to Browser/Runtime
+- Not native JS
 - Typically revolves around Window object
-- Each browser has a JS engine and a Web API
-- Web API chooses when to invoke Engine
-- Browsers use lower level langs in the background
+- Each browser has a JS engine (like V8) and a Runtime that provides a Web API
+- Web API send http requests, listen to DOM events, delay execution, caching, etc.
+- Browsers use lower level langs in the background to perform these operations
 - Web APIs are asynchronous
 - If something hits the Call Stack that isn't recognized by the engine, it gets sent to Web API.
+
+**NOTE:** The course indicates this is a neat way to write asynchronous code, but there are actual async methods now, so this seems unnecessary.
 
 *See JS Runtime Playground:*
 http://latentflip.com/loupe/
@@ -112,7 +115,8 @@ http://latentflip.com/loupe/
 *See snippets/web_api.js & snippets/fix_overflow.js*
 
 ### Event Loop
-- Waits for empty stack to move things from Callback Queue, which is populated when the Web API finishes working, into Stack.
+Monitors Call Stack and returns data and/or callbacks from Callback Queue, which is populated when the Web API finishes working, back into the Call Stack.
+- More detail later in Asynchronous notes
 
 ### Node - server side runtime & API
 - Server-side runtime based on asynchronous I/O that is non-blocking

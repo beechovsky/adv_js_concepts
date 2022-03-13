@@ -144,11 +144,10 @@ When a function is invoked, including the creation of the Global object, an Exec
 ### TODO: Compare `[[Scopes]]` and `[[Environment]]` properties
 
 ### Leakage of Global Variables
-Referencing previously undefined variables in JS may not break ...
-JS looks at the variable, recognizes it hasn't seen var, let,const, etc.
-So, it then goes up scope chain to Global environment and looks for the variable.
-Global Env sees it doesn't exist, and will create it for you.
+Referencing previously undefined variables in JS may not break, because JS looks at the variable, recognizes it hasn't seen `var`, then goes up Scope Chain all the way to Global environment and looks for the variable.
+If the engine sees it doesn't exist, it will create it for you.
 
+*Unless:*
 Enter `'use_strict'`
 - prevents JS from doing unpredicatble things on edge cases
 
