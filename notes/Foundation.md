@@ -1,7 +1,7 @@
 # Introductory Notes from Javascript: The Advanced Concepts
  *https://www.udemy.com/course/advanced-javascript-concepts/*
 
-## Foudnation, Part 1
+## Foundation, Part 1
 **NOTE: Much of this is obvious, retread, refresher, etc. However, it's easy to miss the forest for the trees, so there is utility here.**
 
 ## General
