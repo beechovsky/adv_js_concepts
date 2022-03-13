@@ -1,30 +1,36 @@
-# Notes from Javascript: The Advanced Concepts
+# Notes from JavaScript: The Advanced Concepts
  *https://www.udemy.com/course/advanced-javascript-concepts/*
 
 ## Foundations, Part 2
-# How JavaScript Executes
+**NOTE: This section jumps around a bit, so the notes may not follow the course exactly as I tried to create a more natural flow.**
+
+### How JavaScript Executes
 The JavaScript engine creates an ***execution context*** upon each function call.
-Each function in the calls stack has its own execution context.
+Each function in the calls stack has its own execution context, an internal construct to track execution of a function or the global code.
+
+Remember the Call Stack? That's actually the Execution Context Stack.
 
 ### Global Execution Context (GEC)
 Base Context (on page load, for instance)
-First item on stack
+First item on the stack.
 Provides `Global` object (often `Window`) and associated `this` keyword.
 
 `this === window`
 
-### Phases
+### Phases of Execution
 *Creation Phase*
 - Creation of GEC
 *Execution Phase*
 - Runs code
 
 ### Lexical Environment
-Exists per execution context
+Per execution context, there exists an internal engine construct that holds identifier-variable mapping.
+- Identifier === name of variables/functions
+- Variable, in this case === is the reference to actual object (including function type object) or primitive value
 
 ### Hoisting
-The part of Creation Phase where the JavaScript engine's allocation of memory for the variables and functions it sees in creation phase before execution.
-- AKA Moving vars/funcs to top of respective envs during compilation
+The part of Creation Phase where the JavaScript engine allocates memory for the variables and functions it sees in creation phase before execution.
+- AKA: Moving variables & functions to the top of respective envs during compilation
 Engine cued by `var`, `function` keywords.
 
 *See snippets/hoisting* snippets*
@@ -34,7 +40,7 @@ Variables are not fully hoisted - only the variable name is stored.
 
 `const` and `let` are not hoisted.
 
-Declared Functions are fully hoisted, function *expressions* are not.
+*Declared* functions are fully hoisted (name and definition are stored), function *expressions* are not.
 
 ### Function Expressions and Hoisting
 *Example function expression:*
@@ -42,15 +48,16 @@ Declared Functions are fully hoisted, function *expressions* are not.
     // do something
 }`
 
-Only run after it's defined at runtime - stored the same as a variable defined with `var`. See more below.
+Defined at runtime - stored the same as a variable defined with `var`. See more below.
 
 Understanding hoisting provides a way to optimize memory use.
 
-Hoisting means it's easy to accidentaly refer to things before they're properly defined.
+Hoisting also means it's easy to accidentaly refer to things before they're properly defined.
 
 **Recommendation:** Avoid hoisting
 How?
-- Avoid `var` unless absolutely necessary (actually need a global variable); use `let` and `const` instead
+- Avoid `var` unless absolutely necessary (when you actually need a global variable);
+- use `let` and `const` instead
     - see scoping below
 
 *Aside:*
@@ -86,7 +93,7 @@ Looks like an Array, but isn't (it's an indexed mapping of some sort that is dif
 
 Things you can do with arguments are hard to optimize.
 Recent JS (6) introduces tools to limit use of arguments.
-But, we may need access to/ iterate oever function arguments.
+But, we may need access to/iterate over function arguments.
 So, use `Array.from(arguments)` instead. This allows use of Array methods on arguments.
 
 **Default Parameters** (ES6) - allows use of spread operator:
@@ -95,10 +102,10 @@ So, use `Array.from(arguments)` instead. This allows use of Array methods on arg
 }`
 
 *Aside:*
-(...args) seems insecure as you can send anything to a function with that signature, no?
+(...args) seems insecure as you can send anything to a function with that signature, no? maybe they're ognored, but until they're garbage collected they're pollution at best.
 
 *NOTE:*
-Why, exactly, argumnets is inefficient to work with, other than not having array methods, isn't explained. **TODO: LOOK UP**
+Why, exactly, `arguments` is inefficient to work with, other than not having Array methods, isn't explained. **TODO: LOOK UP**
 
 ### Variable Environment
 What about variables created in a function?
@@ -107,25 +114,34 @@ Each function's execution context has its own variable environment in addition t
 *See snippets/variable_env.js*
 
 ### Scope Chain
-Each execution context has a link back to its parent execution context - the Scope Chain.
-This outer environment depends on where the function sits lexically.
-If a variable accessed in a function isn't found within that function's execution context's variable environment, it goes up the scope chain looking for it.
+Each execution context has a link back to its parent execution context. Each lexical environment also holds a reference to a parent lexical environment. These links comprise the Scope Chain.
+This outer environment depends on where the function sits lexically. If a variable accessed in a function isn't found within that function's execution context's variable environment, it goes up the scope chain looking for it.
 
 Lexical Scope = Static scope (as opposed to Dynamic scope)
 Lexical Scope = available data + variables where function is *defined*, not where it's *invoked*
-Lexical Scope detemrines what variables are available, not where the function is called (dynamic scope).
-
-### Function Lexical Environment
-A variable of function declared inside of a function belongs to that functions's Lexical Environment.
-
-*See snippets/lexical_scope.js*
+Lexical Scope determines what variables are available, not where the function is called (dynamic scope).
 
 *Recall:*
-`eval()` and `with` are dangerous because you can alter scope and scope chains
+`eval()` and `with` are dangerous because you can alter scope and scope chains.
+
+### Function Lexical Environment
+A variable declared inside of a function belongs to that functions's Lexical Environment.
+- Variable, in this case === is the reference to actual object (including function type object) or primitive value
+Functions have a reference to their lexical environment: `[[Environment]]`
+
+*See snippets/lexical_scope.js*
 
 ### `[[scope]]`
 Lexical environment === `[[scope]]` in the JavaScript specification.
 Property of every function - visible in Chrome console.
+
+### Wait ... What?
+**Summary**
+When a function is invoked, including the creation of the Global object, an Execution Context is created and added to the Stack. Execution Contexts, which track execution, have corresponding Lexical Environments, which contain mappings of variables and functions defined within that context as well as a reference to their parent lexical environments. Those links constitute the Scope Chain.
+*Execution Contexts and Lexical Environments are actual JavaScript constructs.*
+*Scope is a concept referring to the visibility of variables and functions to executing code.* A variable or function is 'in scope' if it is within the current lexical environment OR in the lexical environment chain (Scope Chain) of the enclosing function.
+
+### TODO: Compare `[[Scopes]]` and `[[Environment]]` properties
 
 ### Leakage of Global Variables
 Referencing previously undefined variables in JS may not break ...
@@ -188,4 +204,11 @@ It is easy to accidentally access Global Context/Evironment with `this`, so be c
 
 *See snippets/fun_with_this.js*
 
-## Revisit: Lexical Scope vs. Dynamic Scope
+### Revisit: Lexical Scope vs. Dynamic Scope
+
+### TODO: Compare `[[Scopes]]` and `[[Environment]]` properties
+
+## Resources
+Execution Context, Lexical Environment, and Scope
+https://stackoverflow.com/questions/12599965/lexical-environment-and-function-scope
+

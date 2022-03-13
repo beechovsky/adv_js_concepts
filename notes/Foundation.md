@@ -1,10 +1,10 @@
 # Introductory Notes from Javascript: The Advanced Concepts
  *https://www.udemy.com/course/advanced-javascript-concepts/*
 
-## Foundation, Part 1
+## Foundations, Part 1
 **NOTE: Much of this is obvious, retread, refresher, etc. However, it's easy to miss the forest for the trees, so there is utility here.**
 
-## General
+### General
 JavaScript is a language conforming to the ECMAScript Standard.
 
 ### ECMAScript Engine
