@@ -108,13 +108,13 @@ So, use `Array.from(arguments)` instead. This allows use of Array methods on arg
 Why, exactly, `arguments` is inefficient to work with, other than not having Array methods, isn't explained. **TODO: LOOK UP**
 
 ### Variable Environment
-What about variables created in a function?
+What about variables created inside a function?
 Each function's execution context has its own variable environment in addition to `this` and `arguments`. These are variables accessible only to the function they're defined in - they belong to the Lexical Environment of that function call's Execution Context.
 
 *See snippets/variable_env.js*
 
 ### Scope Chain
-Each execution context has a link back to its parent execution context. Each lexical environment also holds a reference to a parent lexical environment. These links comprise the Scope Chain.
+Each lexical environment also holds a reference to a parent lexical environment. These links comprise the Scope Chain.
 This outer environment depends on where the function sits lexically. If a variable accessed in a function isn't found within that function's execution context's variable environment, it goes up the scope chain looking for it.
 
 Lexical Scope = Static scope (as opposed to Dynamic scope)
@@ -201,9 +201,32 @@ It is easy to accidentally access Global Context/Evironment with `this`, so be c
 
 `this` == who called me?
 
+`this` is *NOT* Lexically Scoped! It is Dynamically Scoped - it matter how the function was called, not where it was written.
+
 *See snippets/fun_with_this.js*
 
-### Revisit: Lexical Scope vs. Dynamic Scope
+## Revisit: Lexical Scope vs. Dynamic Scope
+### `call()`, `apply()`, and `bind()`
+These are bandaids to deal with the dynamic scoping of `this`.
+`call` and `apply` are useful for borrowing methods from other objects.
+`bind` is useful for calling functions later.
+*See snippets/more_fun_with_this.js*
+
+### Function Currying with `bind`
+Currying - partially giving a function a parameter.
+**NOTE:** More depth on Currying in Functional section
+
+*See: snippets/function_currying_bind.js*
+
+*See: snippets/this_exercise\*.js*
+
+## Termninology Context vs. Scope
+
+*Aside: I thought this was clear but am leaving it in for completeness.*
+
+*Scope* is the concept of the variable access of a function when it is invoked. What is in the variable and lexical environments, and scope chain?
+
+*Context* is an actual JS structure determined by how a function is invoked.
 
 ### TODO: Compare `[[Scopes]]` and `[[Environment]]` properties
 
