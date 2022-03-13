@@ -209,7 +209,9 @@ It is easy to accidentally access Global Context/Evironment with `this`, so be c
 ### `call()`, `apply()`, and `bind()`
 These are bandaids to deal with the dynamic scoping of `this`.
 `call` and `apply` are useful for borrowing methods from other objects.
+
 `bind` is useful for calling functions later.
+
 *See snippets/more_fun_with_this.js*
 
 ### Function Currying with `bind`
