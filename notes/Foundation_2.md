@@ -144,3 +144,48 @@ With functionScope,
 Dopesnt mean you can never use `var`, but in most cases you can probably use let, const
 
 *See snippets/functional_vs_block...*
+
+## Global Variables
+Doesn't relying on local scope make our code overly complex?
+can't we just use Global Vars so whatever functions we invoke know about them?
+
+No. We have limited memory, and we want to avoid *polluting the Global namepsace.*
+
+It's easy to create collisions between all the JS scripts a web app may employ if everything is declared Globally.
+
+### IIFE
+Modern JavaScript employs Modules, and Module Bundlers. However, before those existed, developers used what we've learned so far to avoid issues with Global variables. They employed Immediately Onvoked Function Expressions (IIFE).
+*Example*
+`(function)() {
+
+})();`
+
+*Recall:*
+The open praenthesis keeps this function from being hoisted - it is a *function expression*.
+
+It is also an anonymous function (no name), and we Immeidately invoke it with the final `();`.
+
+This allows providing all of a given library's code inside of a local scope, as the expression isn't assigned to a variable, so there is no Global property.
+
+This is how older libraries like Jquery avoided polluting the global environment.
+
+*See /snippets/iife.js & iife.html*
+
+IIFE allows attaching private data to a function, creating a fresh lexical environment.
+
+## `this`
+*Recall:*
+Keyword added to every execution context, including Global.
+
+`this` is the object that the function is a property of
+`obj.someFunction(this)`
+
+`this` was created to give methods access to their objects. It also allows us to execute the same code for multiple objects.
+
+It is easy to accidentally access Global Context/Evironment with `this`, so be careful.
+
+`this` == who called me?
+
+*See snippets/fun_with_this.js*
+
+## Revisit: Lexical Scope vs. Dynamic Scope

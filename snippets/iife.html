@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <h1>Yooooooooooo ...</h1>
+        <script>
+            var z = 1;
+            function a() {
+                return 'a';
+            }
+        </script>
+        <script>
+            // These assignments replace those above.
+            // Calling 'a()' will return the value below.
+            var z = 2;
+            function a() {
+                return 'lol nope';
+            }
+        </script>
+        <script>
+            // We can encapsulate this in a function expression,
+            // which when invoked will be given it's own lexical environment
+            // in which to operate - it will have it's own local scope.
+            var script3 = (function () {
+                function a() {
+                    return 'lol nope';
+                }
+            })();
+        </script>
+        <!-- Let's pull in JQuery, an older libraries utilizing IIFEs. -->
+        <script src="jquery-3.5.1.min.js"></script>
+        <script>
+            // we'll use a Jquery syntax to attach an anonymous function expression to the page
+            var script5 = (function() {
+                // jQuery has added '$' to the window
+                $('h1').onclick(function() {
+                    $('h1').hide(); // can also use 'this' to reference element
+                })
+                return {}
+            })();
+            // in your console, look for 'window.$' and 'window.jQuery'
+        </script>
+
+        <!-- Let's step it up a notch. Comment out hte above script and uncomment this before re-running. -->
+        <!-- <script>
+            // we'll use the global jQuery variable as a function argument
+            var script6 = (function (fromGlobal) {
+                fromGlobal.onclick(function() {
+                    fromGlobal.hide();
+                })
+                return {}
+            })(jQuery);
+            // This is actually moreperformantthan teh above, because upon seeing the $, there's a scope chain lookup.
+            // Since this function can find that in teh jQuery argument we passed, there is no scope chain lookup.
+        </script> -->
+    </body>
+</html>
