@@ -3,14 +3,14 @@
 
 if(1) {
     console.log('yup')
-} // return yup as 1 is coerced to true
+} // returns yup as 1 is coerced to true
 
 if(0) {
     console.log('nope')
 } // no log, as 0 is coerced to false
 
 // Object.is
-// Consider negative an positive zero:
+// Consider negative and positive zero:
 -0 === +0 // true, though technically different
 
 Object.is(-0,+0) // false

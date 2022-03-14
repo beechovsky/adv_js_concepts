@@ -2,7 +2,7 @@
  *https://www.udemy.com/course/advanced-javascript-concepts/*
 
 ## Types
-There are only 7 types in native JS
+There are only 7 types in *native* JS:
 - number
 - boolean
 - string
@@ -27,16 +27,18 @@ Returns 'object'!
 Actual mistake made by language creator. Too costly to fix, so this is how we do.
 
 #### `undefined` or `null`
-`undefined` is the absence of a definition. Default value when JS engine initializes variables, for instance.
+`undefined` is the absence of a *definition*. Default value when JS engine initializes variables, for instance.
 
-`null` is the absence of a value.
+`null` is the absence of a *value*.
 
 #### `typeof function(){}`
 Returns 'function'!
-Technically, there is no function type. Arrays and functions are objects. More detail later.
+Technically, there is no function type. Arrays and functions are objects. More detail in later sections.
 
 #### Finding Array types
-Use Array.isArray(), as typeof will simply return 'object'.
+Use `Array.isArray()`, as `typeof` will simply return 'object'.
+
+*See snippets/types/isArray.js*
 
 #### Standard built-in objects
 "Everything is JavaScript is an object." - Not really.
@@ -45,18 +47,21 @@ Things we interact with in JS have object wrappers.
 
 Ex.
 `true.toString();` - returns `'true'`.
-JS has silently wraped the primitive in the wrapper object.
-
+JS has silently wrapped the primitive in the wrapper object.
 
 ### Pass by Reference vs. Pass by Value
-Primitve types are immutable. In order to change them we need to remove the original primitive value. Reassigning a primitive updates the value stored at the address the variable knows. It doesn't create a new chunk of memory or point to another. This is pass by value.
+**NOTE:** Examples an discussion here wenre't great - lookup and update.
+
+Primitve types are immutable. In order to change them we need to remove the original primitive value. Reassigning a primitive updates the value stored at the address the variable knows. It doesn't create a new chunk of memory or point to another. This is Pass by Value.
 
 Objects use Pass by Reference. Setting one object equal to another doesn't simply update the values of the target object, it makes both objects point to the same place in memory - both reference the same thing.
 
-Why use Pass by Reference? Saving memory wherever possible. Objects can get huge. This can be dangerous, so you may want o copy objects in a manner allowing discrete updates. This is Cloning.
+Why use Pass by Reference? Saving memory wherever possible. Objects can get huge. This can be dangerous, so you may want o copy objects in a manner allowing discrete updates. This copying is often referred to as Cloning.
+
+ *See snippets/types/pass_by\*.js*
 
 #### Cloning Objects to avoid overwrite
-There are mulitple ways to clone objects, which creates copies that don;t also point to the same place in memory.
+There are mulitple ways to clone objects, creating copies that don't also point to the same place in memory.
 
 Using `Object.assign()`:
 `let obj2 = Object.assign({}, obj1);`
@@ -74,9 +79,13 @@ For deep cloning, we can use the JSON object like so:
 
 However, one should be wary of deep cloning, as it can be very costly on performance if an object is deep - containing many levels of nested object properties.
 
+*See snippets/types/cloning.js*
+
 ### Comparing Objects
 Comparing objects can be difficult, unless they are fairly simple, 'JSON-like' objects. In that case, you can use the `JSON.stringify()` method above like so:
 `var eq = JSON.stringify(user1) === JSON.stringify(user2);`
+
+*See snippets/types/comparing_objects.js*
 
 ### Type Coercion
 Type Coercion is the conversion of a variable of one type to another, usually to satisfy an expression.
@@ -96,6 +105,8 @@ Javascript coerces 1 into false in conditional statements, and 0 into false
 In general, `==` isn't as predicatble, something we endeavor to achieve in JS. So avoid it if possible.
 
 `Object.is` -  works much like `===`, except for `-0` and `+0` and `NaN`.
+
+*See snippets/type_coercion\*.js*
 
 ### Static vs Dynamically Typed
 **NOTE:** This section is pretty light and hand-wavy, which is fine.
@@ -131,20 +142,19 @@ In a statically typed language, we'd see something like this:
 `int a = 100` - we know its an `int`, so we know how much memory to allocate.
 
 #### Enter Typescript
-Goal: Introduce Static Type cheiking and reduce bugs
+Goal: Introduce Static Type checking and reduce bugs.
 
-There are other Statically typed JS implemetnations (Flow, ReasonML, Elm, etc.).
-Flow is a static type checker commonly used with React, and compiled via Babel. You'll see `// @flow` near the top of a file. Included in Create React App tooling.
+There are other statically typed JS implemetnations (Flow, ReasonML, Elm, etc.).
 
-Typescript differs from Flow in that it has its own compiler - it's a superset of JS. The TypeScript compiler outputs JS for the browser.
+**Flow** is a static type checker commonly used with React, and compiled via Babel. You'll see `// @flow` near the top of a file. Included in Create React App tooling.
 
-Reason is a totally different language with it's own compiler that outputs JS. Not a superset of JS.
+**Typescript** differs from Flow in that it has its own compiler - it's a superset of JS. The TypeScript compiler outputs JS for the browser.
 
-Elm is like ReasonML - a totally different language with it's own compiler.
+**ReasonML** is a totally different language with its own compiler that outputs JS. Not a superset of JS.
+
+**Elm** is like ReasonML - not a superset of JS; a totally different language with it's own compiler.
 
 TypeSript is currently the dominant Statically typed language for JS. Originally due to Angular, but it is also used in React quite a bit.
 
 #### When to use Static type checking
 When the project is growing to the point where new hires are a must. Self documenting code is easier to learn.
-
-### Arrays, Functions, and Objects

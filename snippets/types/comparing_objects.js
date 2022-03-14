@@ -1,5 +1,4 @@
-// How would we comapre two objects if they are pointing to a different location in memory but have the same properties?
-
+// How would we compare two objects if they are pointing to a different location in memory but have the same properties?
 var user1 = {name: 'nerd', org: 'dev'};
 var user2 = {name: 'nerd', org: 'dev'};
 

@@ -47,7 +47,7 @@ console.log(clone4)
 
 // AH!
 // The nested object property was not cloned,
-// so while the parent objects are exist at different places in memory,
+// so while the parent objects all exist at different places in memory,
 // all of their object properties are still pointing to the same place.
 // This is shallow cloning.
 

@@ -22,7 +22,7 @@ obj2.password = 'easy'
 console.log(obj1)
 console.log(obj2)
 
-// Both passwords were overwritten, due to an object's pass by reference.
+// Both passwords were overwritten, due to pass by reference.
 // obj1 and obj2 point to the same place in memory, so changes to one affects the other.
 
 
