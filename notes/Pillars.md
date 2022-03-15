@@ -113,8 +113,53 @@ Data in Closures is ignored by the Garbage Collector.
 
 ### Benefits
 Closures have two primary benefits:
-- They allow efficient memory management.
+- Efficient memory management.
 - Encapsulation
+
+### Closures as Function Factories
+Consider the following code from MDN:
+```
+function makeAdder(x) {
+  return function(y) {
+    return x + y;
+  };
+}
+
+var add5 = makeAdder(5);
+var add10 = makeAdder(10);
+
+console.log(add5(2));  // 7
+console.log(add10(2)); // 12
+```
+`add5` and `add10` are both closures. They share the same function body definition, but store different lexical environments. In `add5`'s lexical environment, `x` is 5, while in the lexical environment for `add10`, `x` is 10.
+
+Closures are useful because they let you associate data (the lexical environment) with a function that operates on that data. 
+
+You can use a closure anywhere that you might normally use an object with only a single method.
+
+Consider this slightly more usful example:
+```
+function makeSizer(size) {
+  return function() {
+    document.body.style.fontSize = size + 'px';
+  };
+}
+
+var size12 = makeSizer(12);
+var size14 = makeSizer(14);
+var size16 = makeSizer(16);
+```
+`size12`, `size14`, and `size16` are now functions that resize the body text to 12, 14, and 16 pixels, respectively. You can attach them to buttons (in this case hyperlinks) as demonstrated in the following code example.
+```
+document.getElementById('size-12').onclick = size12;
+document.getElementById('size-14').onclick = size14;
+document.getElementById('size-16').onclick = size16;
+```
+```
+<a href="#" id="size-12">12</a>
+<a href="#" id="size-14">14</a>
+<a href="#" id="size-16">16</a>
+```
 
 *See snippets/pillars/closures_\*.js*
 
