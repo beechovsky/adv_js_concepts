@@ -136,7 +136,7 @@ Lexical environment === `[[scope]]` in the JavaScript specification.
 Property of every function - visible in Chrome console.
 
 ### Wait ... What?
-**Summary**
+**Summary:**
 When a function is invoked, including the creation of the Global object, an Execution Context is created and added to the Stack. Execution Contexts, which track execution, have corresponding Lexical Environments, which contain mappings of variables and functions defined within that context as well as a reference to their parent lexical environments. Those links constitute the Scope Chain.
 *Execution Contexts and Lexical Environments are actual JavaScript constructs.*
 *Scope is a concept referring to the visibility of variables and functions to executing code.* A variable or function is 'in scope' if it is within the current lexical environment OR in the lexical environment chain (Scope Chain) of the enclosing function.
@@ -154,15 +154,57 @@ Enter `'use_strict'`
 *See snippets/lexical_scope_leakage.js and snippets/lexical_scope_function_expression.js*
 
 ### Function Scope vs. Block Scope
-With functionScope,
+The main difference is scoping rules. Variables declared by `var` keyword are scoped to the immediate function body (hence the function scope) while `let` variables are scoped to the immediate enclosing block denoted by { } (hence the block scope).
 
-Dopesnt mean you can never use `var`, but in most cases you can probably use let, const
+Doesn't mean you can never use `var`, but in most cases you can probably use `let` or `const`.
+
+Example:
+```
+function run() {
+  var foo = "Foo";
+  let bar = "Bar";
+
+  console.log(foo, bar); // Foo Bar
+
+  {
+    var moo = "Mooo"
+    let baz = "Bazz";
+    console.log(moo, baz); // Mooo Bazz
+  }
+
+  console.log(moo); // Mooo
+  console.log(baz); // ReferenceError
+}
+
+run();
+```
+The reason why let keyword was introduced to the language was function scope is confusing and was one of the main sources of bugs in JavaScript.
+Here's an example:
+```
+var funcs = [];
+// let's create 3 functions
+for (var i = 0; i < 3; i++) {
+  // and store them in funcs
+  funcs[i] = function() {
+    // each should log its value.
+    console.log("My value: " + i);
+  };
+}
+for (var j = 0; j < 3; j++) {
+  // and now let's run each one to see
+  funcs[j]();
+}
+```
+
+When you run this, you'll see "My value: 3" feach time! This is beacuse the anonymous functions inside the first loop are bound to the function-scoped var `i`. `i`, which is 3 once the first loop finishses. Before `let`, developers would use immediately invoked functions (see below) to solve this.
+
+#### `var`, `let, and Hoisting
+Variables declared with `var` keyword are hoisted (initialized with undefined before the code is run) which means they are accessible in their enclosing scope even before they are declared. `let` variables are not initialized until their definition is evaluated. Accessing them before the initialization results in a ReferenceError. 
 
 *See snippets/functional_vs_block...*
 
 ## Global Variables
-Doesn't relying on local scope make our code overly complex?
-can't we just use Global Vars so whatever functions we invoke know about them?
+Doesn't relying on local scope make our code overly complex? Can't we just use Global Vars so whatever functions we invoke know about them?
 
 No. We have limited memory, and we want to avoid *polluting the Global namepsace.*
 
