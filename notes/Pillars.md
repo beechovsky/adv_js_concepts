@@ -107,7 +107,7 @@ So, inner functions have access to the variables of outer functions.
 
 Closures allow a function to access variables from the enclosing scope *even after it leaves the scope in which it was declared.*
 
-Data in Closures is ignored by the Garbage Collector.
+Data in Closures is ignored by the Garbage Collector. Any variables in the closure of a function are kept in memory as long as there is a way to reference that function. 
 
 *Recall:* The JS engine, before we run code, already knows which functions have access to which variables because JS is lexically scoped (where the function is written/declared matters, not when it's invoked).
 
