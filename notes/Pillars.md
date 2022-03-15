@@ -107,7 +107,7 @@ So, inner functions have access to the variables of outer functions.
 
 Closures allow a function to access variables from the enclosing scope *even after it leaves the scope in which it was declared.*
 
-Data in Closures is ignored by the Garbage Collector. Any variables in the closure of a function are kept in memory as long as there is a way to reference that function. 
+Data in Closures is ignored by the Garbage Collector. Any variables in the closure of a function are kept in memory as long as there is a way to reference that function.
 
 *Recall:* The JS engine, before we run code, already knows which functions have access to which variables because JS is lexically scoped (where the function is written/declared matters, not when it's invoked).
 
@@ -133,7 +133,7 @@ console.log(add10(2)); // 12
 ```
 `add5` and `add10` are both closures. They share the same function body definition, but store different lexical environments. In `add5`'s lexical environment, `x` is 5, while in the lexical environment for `add10`, `x` is 10.
 
-Closures are useful because they let you associate data (the lexical environment) with a function that operates on that data. 
+Closures are useful because they let you associate data (the lexical environment) with a function that operates on that data.
 
 You can use a closure anywhere that you might normally use an object with only a single method.
 
@@ -164,6 +164,78 @@ document.getElementById('size-16').onclick = size16;
 *See snippets/pillars/closures_\*.js*
 
 ## Prototypal Inheritance
+Recall: Arrays and Functions are just Objects
+
+Inheritance is an Object getting access to the properties and methods of another Object.
+The Array object has acccess to the methods and properties of teh base Object.
+
+So do functions.
+
+Run the folling in a console:
+```
+const array = []
+array.__proto__
+```
+You'll see a list of methods - Array methods. Our variable is ingerited from ARrary, and we went up the prototype chain to see the Array Object's methods.
+
+We can go further up the prototype chain:
+`array.__proto__.__proto__`
+Running this shows a differnt list - the methods of the base JS Object.
+
+Other languages has Inheritance, but they mostly use Classical Inheritance. JavaScript uses Prototypal Inheritance.
+
+What's the difference?
+
+There are no Classes in JavaScript - only Prototypal Inheritance. Yes, there is a `class` keyword, but that is syntactic sugar.
+
+Recall: We can us bind() to borrow aspects of one Object in another. What if we want to borrow many properties from adeep/large object?
+
+We can add the object we need features of to our new object's prototype chain:
+
+`lizard.__proto__ = dragon;`
+
+#### `isPrototypeOf()`
+Allows checking whether an object is a prototype of another.
+`dragon.isPrototypeOf(lizard); // true`
+
+The engine didn't find the method in `dragon`, and went up the prototype chain into object to find it.
+
+Prototypes are Superclasses in other languages.
+
+NOTE: Protoyping does NOT copy properties andmethods to the inheriting class. The engine will simply look up the prototype chain for them.
+
+Why don't we see `__proto__` everywhere?
+It's bad for performance, and there are better ways to inherit. Never manually assign to chains.
+To safely create a prototype, use `Object.create(<object we're inheriting from>)`.
+
+Why is all this useful?
+Since objects can share prototpyes, they share properties pointg to the same place in memory.
+We could create hundreds of lizards from the examples above, and all of their inherited properties refer to the same location in memory.
+
+#### The Prototype property
+Unsurprisingly, `__proto__` is simply a pointer to the `prototype` property of teh Object being inherited from.
+
+Example:
+```
+function a() {}
+a().__proto__ // returns f() {...}
+Function.prottype // also returns f() {...}
+```
+
+NOTE: Only functions have the protoype property.
+When we create functions, they are given prototype.
+
+The only time we use them is with Constructor Functions.
+
+But we can run `Object.prototype`!
+
+`typeof Object // returns 'function'`
+
+`Object` is the *Object Constructor* that creates an object wrapper. The object constructor is a function, so it gets a prototype property.
+
+To perform an action, we need a function.
+
+
 
 ### Background: Scheme + Java
 
